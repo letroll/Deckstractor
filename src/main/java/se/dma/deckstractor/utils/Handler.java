@@ -106,6 +106,7 @@ public class Handler implements ActionListener {
                             m.printStackTrace();
                         }
                         im = robot.createScreenCapture(new Rectangle(1510, 121, 50, 25));
+                        //im = robot.createScreenCapture(new Rectangle(1050, 88, 50, 25));
                         //Old capture for class recognition
                         //im = robot.createScreenCapture(new Rectangle(1420, 30, 25, 25));
                         output = new File("SingleImgTemplate.jpeg");

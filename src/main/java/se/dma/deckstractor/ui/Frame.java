@@ -1,16 +1,15 @@
 package main.java.se.dma.deckstractor.ui;
 
 import main.java.se.dma.deckstractor.Main;
-import main.java.se.dma.deckstractor.domain.Card;
-import main.java.se.dma.deckstractor.domain.HearthstoneClass;
 import main.java.se.dma.deckstractor.utils.Handler;
+import main.java.se.dma.deckstractor.utils.ScreenUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Frame {
     public static final JEditorPane editorPane = new JEditorPane();
+    public static final JLabel cursorPosition = new JLabel("0*0");
     public static final JLabel cardsFound = new JLabel("Cards found: 0");
     private final int interval = 1;
 
@@ -33,7 +32,6 @@ public class Frame {
         }
     }
 
-
     public static void RemoveOverThirtyFirst(){
         for (int i = 29; i > 13; i--) {
             if (Main.totCards>30) {
@@ -43,7 +41,6 @@ public class Frame {
             }
         }
     }
-
 
     public static void RemoveOverThirtySecond(){
         for (int i = 21; i < 30; i++) {
@@ -55,10 +52,8 @@ public class Frame {
         }
     }
 
-
     //Remove spaces in array keeping track of cards when search is done, also put one gold and one normal cards togeather as one.
     public static void RemoveSpace() {
-
 
         for (int m = 0; m < 29; m++) {
             if (Main.cardNumb[m] == Main.cardNumb[m + 1]) {
@@ -116,10 +111,14 @@ public class Frame {
         editorPane.setPreferredSize(new Dimension(190, 500));
 
         initializeMenuBar(frame, handler);
-
+        frame.add(cursorPosition);
         frame.add(cardsFound);
         frame.add(editorPane);
         frame.revalidate();
+
+        while(true){
+            cursorPosition.setText(ScreenUtils.getReadableMousePosition());
+        }
     }
 
     private void initializeMenuBar(JFrame frame, Handler handler) {
@@ -170,29 +169,38 @@ public class Frame {
                 Help.add(SearchTemplate);
                 SearchTemplate.addActionListener(handler);
 
-            JMenu Template = new JMenu("Template");
-            bar.add(Template);
+        JMenu Template = new JMenu("Template");
+        bar.add(Template);
 
-                JMenuItem SingleTemplate = new JMenuItem("Create Single Card Template");
-                Template.add(SingleTemplate);
-                SingleTemplate.addActionListener(handler);
+        JMenuItem SingleTemplate = new JMenuItem("Create Single Card Template");
+        Template.add(SingleTemplate);
+        SingleTemplate.addActionListener(handler);
 
-                JMenuItem DoubleTemplate = new JMenuItem("Create Double Card Template");
-                Template.add(DoubleTemplate);
-                DoubleTemplate.addActionListener(handler);
+        JMenuItem DoubleTemplate = new JMenuItem("Create Double Card Template");
+        Template.add(DoubleTemplate);
+        DoubleTemplate.addActionListener(handler);
+
+/*        JMenu Setting = new JMenu("Setting");
+        bar.add(Setting);
+
+        JCheckBoxMenuItem KeepAbove = new JCheckBoxMenuItem("Keep above other window");
+        Template.add(KeepAbove);
+        KeepAbove.addActionListener(handler);*/
     }
 
     private JFrame getjFrame() {
         JFrame frame = new JFrame("Deckstractor");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setSize(220, 590);
-        frame.setResizable(false);
+        //frame.setSize(220, 590);
+        frame.setSize(250, 590);
+        //frame.setResizable(true);
+        frame.setResizable(true);
         frame.setLayout(new FlowLayout());
         frame.setAlwaysOnTop(true);
         frame.setFocusable(false);
         frame.setFocusableWindowState(false);
-        frame.setLocation(1695, 200);
+        //frame.setLocation(1695, 200);
         return frame;
     }
 }
