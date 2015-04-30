@@ -11,4 +11,6 @@ bin/
 .idea/
 out/
 TempCards*.jpeg
-.clover
+.clover.DS_Store
+SingleImgTemplate.jpeg
+.DS_Store
